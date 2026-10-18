@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import sys
+import os
+
+tools_dir = os.path.expanduser("~/mytools/myplots")
+sys.path.append(tools_dir)
+
+import plot
+import plot_rdf
+import plot_potential
+import plot_xrd
+    
+if __name__ == "__main__":
+
+    data_types = [plot_rdf.RDF_data(),
+                    plot_potential.POT_data(),
+                    plot_xrd.XRD_data()]
+
+
+    graph = plot.Plotter()
+    graph.parse_args(*data_types)
+    graph.run()
