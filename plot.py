@@ -42,14 +42,19 @@ class Plotter():
             self.ax.autoscale_view(scalex=True, scaley=True)
 
         if self.args.title is not None:
-            self.ax.set_title(self.args.title)
+            self.ax.set_title(self.args.title, fontsize = 18)
         if self.args.xtitle is not None:
-            self.ax.set_xlabel(self.args.xtitle)
+            self.ax.set_xlabel(self.args.xtitle, fontsize = 13)
         if self.args.ytitle is not None:
-            self.ax.set_ylabel(self.args.ytitle)
-
+            self.ax.set_ylabel(self.args.ytitle, fontsize = 13)
+        
         self.ax.legend()
         plt.grid(True)
+
+        if self.args.svg is not None:
+            self.fig.savefig(f'{self.args.svg}')
+        if self.args.png is not None:
+            self.fig.savefig(f'{self.args.png}')
 
     def parse_args(self, *data_types: DataSource):
         for data_type in data_types:
@@ -68,6 +73,9 @@ class Plotter():
         self.parser.add_argument("-title", type=str, help="Sets title of plot")
         self.parser.add_argument("-xtitle", type=str, help="Sets title of x axis")
         self.parser.add_argument("-ytitle", type=str, help="Sets title of y axis")
+
+        self.parser.add_argument("-svg", type=str, help="Saves figure in svg format, give a filename.svg")
+        self.parser.add_argument("-png", type=str, help="Saves figure in png format, give a filename.png")
         
         self.args = self.parser.parse_args()
         
